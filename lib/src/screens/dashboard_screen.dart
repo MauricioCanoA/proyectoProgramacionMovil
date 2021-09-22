@@ -42,6 +42,16 @@ class DashBoardScreen extends StatelessWidget {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/intenciones');
               },
+            ),
+            ListTile(
+              title: Text('Notas'),
+              subtitle: Text('CRUD Notas'),
+              leading: Icon(Icons.phone_android),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/notas');
+              },
             )
           ],
         ),
