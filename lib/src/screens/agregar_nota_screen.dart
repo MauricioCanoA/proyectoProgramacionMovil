@@ -4,7 +4,8 @@ import 'package:practica_2/src/models/notas_model.dart';
 import 'package:practica_2/src/utils/color_settings.dart';
 
 class AgregarNotasScreen extends StatefulWidget {
-  AgregarNotasScreen({Key? key}) : super(key: key);
+  NotasModel? nota;
+  AgregarNotasScreen({Key? key, this.nota}) : super(key: key);
 
   @override
   _AgregarNotasScreenState createState() => _AgregarNotasScreenState();
@@ -19,6 +20,10 @@ class _AgregarNotasScreenState extends State<AgregarNotasScreen> {
   @override
   void initState() {
     super.initState();
+    if (widget.nota != null) {
+      _controllerTitulo.text = widget.nota!.titulo!;
+      _controllerDetalle.text = widget.nota!.detalle!;
+    }
     _databaseHelper = DatabaseHelper();
   }
 
@@ -27,7 +32,7 @@ class _AgregarNotasScreenState extends State<AgregarNotasScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorSettings.colorPrimary,
-        title: Text('Agregar Nota'),
+        title: widget.nota == null ? Text('Agregar Nota') : Text('Editar Nota'),
       ),
       body: ListView(
         children: [
@@ -47,6 +52,7 @@ class _AgregarNotasScreenState extends State<AgregarNotasScreen> {
                     //Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text('Registro Insertado correctamente')));
+                    setState(() {});
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('La Solicitud no se concreto')));
