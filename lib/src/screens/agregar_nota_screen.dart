@@ -43,21 +43,33 @@ class _AgregarNotasScreenState extends State<AgregarNotasScreen> {
           _crearTextFieldDetalle(),
           ElevatedButton(
               onPressed: () {
-                NotasModel nota = NotasModel(
-                    titulo: _controllerTitulo.text,
-                    detalle: _controllerDetalle.text);
+                if (widget.nota == null) {
+                  NotasModel nota = NotasModel(
+                      titulo: _controllerTitulo.text,
+                      detalle: _controllerDetalle.text);
 
-                _databaseHelper.insert(nota.toMap()).then((value) {
-                  if (value > 0) {
-                    //Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Registro Insertado correctamente')));
-                    setState(() {});
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('La Solicitud no se concreto')));
-                  }
-                });
+                  _databaseHelper.insert(nota.toMap()).then((value) {
+                    if (value > 0) {
+                      Navigator.pop(context);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text('La Solicitud no se concreto')));
+                    }
+                  });
+                } else {
+                  NotasModel nota = NotasModel(
+                      id: widget.nota!.id,
+                      titulo: _controllerTitulo.text,
+                      detalle: _controllerDetalle.text);
+                  _databaseHelper.update(nota.toMap()).then((value) {
+                    if (value > 0) {
+                      Navigator.pop(context);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text('La Solicitud no se concreto')));
+                    }
+                  });
+                }
               },
               child: Text('Guarda Nota'))
         ],

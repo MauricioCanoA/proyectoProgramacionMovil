@@ -16,13 +16,17 @@ class DashBoardScreen extends StatelessWidget {
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
-              accountName: Text('Mauricio Cano'),
-              accountEmail: Text('17030487@itcelaya.edu.mx'),
-              currentAccountPicture: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://i.pinimg.com/280x280_RS/9f/48/1c/9f481cbebae4ae30f95d9b6092479676.jpg')),
-              decoration: BoxDecoration(color: ColorSettings.colorPrimary),
-            ),
+                accountName: Text('Mauricio Cano'),
+                accountEmail: Text('17030487@itcelaya.edu.mx'),
+                currentAccountPicture: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        'https://i.pinimg.com/280x280_RS/9f/48/1c/9f481cbebae4ae30f95d9b6092479676.jpg')),
+                decoration: BoxDecoration(color: ColorSettings.colorPrimary),
+                onDetailsPressed: () {
+                  Icon(Icons.settings);
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, '/settProf');
+                }),
             ListTile(
               title: Text('Propinas'),
               subtitle: Text('Calculadora de Propinas'),
