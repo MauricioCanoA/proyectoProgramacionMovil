@@ -1,8 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:practica_2/src/database/database_helper_profile.dart';
 import 'package:practica_2/src/utils/color_settings.dart';
 
-class DashBoardScreen extends StatelessWidget {
+class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({Key? key}) : super(key: key);
+  @override
+  _DashBoardScreenState createState() => _DashBoardScreenState();
+}
+
+class _DashBoardScreenState extends State<DashBoardScreen> {
+  var db = Mysql();
+  var nameAccount = '';
+  var emailAccount = '';
+  var imageRoute = '';
+
+  @override
+  void initState() {
+    super.initState();
+    db.getConnection().then((conn) {
+      print('Open Connection');
+      String sql = 'select concat(nombreUser,apellidoPatUser) from userinf;';
+      String sql2 = 'select email from userinf;';
+      String sql3 = 'select imageRoute from userinf;';
+      conn.query(sql).then((results) {
+        for (var row in results) {
+          setState(() {
+            nameAccount = row[0];
+          });
+        }
+      });
+      conn.query(sql2).then((results) {
+        for (var row in results) {
+          setState(() {
+            emailAccount = row[0];
+          });
+        }
+      });
+      conn.query(sql3).then((results) {
+        for (var row in results) {
+          setState(() {
+            imageRoute = row[0];
+          });
+        }
+      });
+      //conn.close();
+      //print('Close Connection');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +60,10 @@ class DashBoardScreen extends StatelessWidget {
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
-                accountName: Text('Mauricio Cano'),
-                accountEmail: Text('17030487@itcelaya.edu.mx'),
-                currentAccountPicture: CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        'https://i.pinimg.com/280x280_RS/9f/48/1c/9f481cbebae4ae30f95d9b6092479676.jpg')),
+                accountName: Text(nameAccount),
+                accountEmail: Text(emailAccount),
+                currentAccountPicture:
+                    CircleAvatar(backgroundImage: AssetImage(imageRoute)),
                 decoration: BoxDecoration(color: ColorSettings.colorPrimary),
                 onDetailsPressed: () {
                   Icon(Icons.settings);
