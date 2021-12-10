@@ -35,6 +35,8 @@ dependencies:
   mysql1: ^0.19.2
   path_provider: ^2.0.4
   http: ^0.13.3
+  video_player: ^2.2.3
+  youtube_player_iframe: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -3,45 +3,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:practica_2/src/database/database_helper_profile.dart';
 import 'package:practica_2/src/utils/color_settings.dart';
 
 class ProfileScreenSet extends StatefulWidget {
   ProfileScreenSet({Key? key}) : super(key: key);
-
   @override
   _ProfileScreenSetState createState() => _ProfileScreenSetState();
 }
 
 class _ProfileScreenSetState extends State<ProfileScreenSet> {
-  var db = Mysql();
-  var userId = 1;
-  var nombreUser = '';
-  var apellidoPatUser = '';
-  var apellidoMatUser = '';
-  var numeroTelefono = '';
-  var email = '';
-  var imageRoute = '';
-
   @override
   void initState() {
     super.initState();
-    db.getConnection().then((conn) {
-      print('Open Connection');
-      String sql = 'select * from userinf where userId = ?;';
-      conn.query(sql, [userId]).then((results) {
-        for (var row in results) {
-          setState(() {
-            nombreUser = row[1];
-            apellidoPatUser = row[2];
-            apellidoMatUser = row[3];
-            numeroTelefono = row[4];
-            email = row[5];
-            imageRoute = row[6];
-          });
-        }
-      });
-    });
   }
 
   File? imageTemp;
@@ -72,17 +45,17 @@ class _ProfileScreenSetState extends State<ProfileScreenSet> {
 
   @override
   Widget build(BuildContext context) {
-    final controllerNombreUser = TextEditingController(text: nombreUser);
+    /*final controllerNombreUser = TextEditingController(text: nombreUser);
     final controllerApellidoPat = TextEditingController(text: apellidoPatUser);
     final controllerApellidoMat = TextEditingController(text: apellidoMatUser);
     final controllerNumTel = TextEditingController(text: numeroTelefono);
-    final controllerEmail = TextEditingController(text: email);
+    final controllerEmail = TextEditingController(text: email);*/
 
     CircleAvatar avatar =
-        CircleAvatar(backgroundImage: AssetImage(imageRoute), radius: 80);
+        CircleAvatar(backgroundImage: AssetImage(''), radius: 80);
 
     TextField tfNombreUser = TextField(
-      controller: controllerNombreUser,
+      //controller: controllerNombreUser,
       maxLines: 1,
       maxLength: 20,
       keyboardType: TextInputType.name,
@@ -98,7 +71,7 @@ class _ProfileScreenSetState extends State<ProfileScreenSet> {
     );
 
     TextField tfApellidoPatUser = TextField(
-      controller: controllerApellidoPat,
+      //controller: controllerApellidoPat,
       maxLength: 20,
       maxLines: 1,
       keyboardType: TextInputType.name,
@@ -114,7 +87,7 @@ class _ProfileScreenSetState extends State<ProfileScreenSet> {
     );
 
     TextField tfApellidoMatUser = TextField(
-      controller: controllerApellidoMat,
+      //controller: controllerApellidoMat,
       maxLength: 20,
       maxLines: 1,
       keyboardType: TextInputType.name,
@@ -130,7 +103,7 @@ class _ProfileScreenSetState extends State<ProfileScreenSet> {
     );
 
     TextField tfNumeroTel = TextField(
-      controller: controllerNumTel,
+      //controller: controllerNumTel,
       maxLength: 10,
       maxLines: 1,
       keyboardType: TextInputType.number,
@@ -146,7 +119,7 @@ class _ProfileScreenSetState extends State<ProfileScreenSet> {
     );
 
     TextField tfEmail = TextField(
-      controller: controllerEmail,
+      //controller: controllerEmail,
       maxLength: 50,
       maxLines: 1,
       keyboardType: TextInputType.emailAddress,

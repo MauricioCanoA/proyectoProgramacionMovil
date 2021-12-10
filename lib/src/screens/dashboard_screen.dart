@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:practica_2/src/database/database_helper_profile.dart';
 import 'package:practica_2/src/utils/color_settings.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -9,43 +8,9 @@ class DashBoardScreen extends StatefulWidget {
 }
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
-  var db = Mysql();
-  var nameAccount = '';
-  var emailAccount = '';
-  var imageRoute = '';
-
   @override
   void initState() {
     super.initState();
-    db.getConnection().then((conn) {
-      print('Open Connection');
-      String sql = 'select concat(nombreUser,apellidoPatUser) from userinf;';
-      String sql2 = 'select email from userinf;';
-      String sql3 = 'select imageRoute from userinf;';
-      conn.query(sql).then((results) {
-        for (var row in results) {
-          setState(() {
-            nameAccount = row[0];
-          });
-        }
-      });
-      conn.query(sql2).then((results) {
-        for (var row in results) {
-          setState(() {
-            emailAccount = row[0];
-          });
-        }
-      });
-      conn.query(sql3).then((results) {
-        for (var row in results) {
-          setState(() {
-            imageRoute = row[0];
-          });
-        }
-      });
-      //conn.close();
-      //print('Close Connection');
-    });
   }
 
   @override
@@ -60,10 +25,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
-                accountName: Text(nameAccount),
-                accountEmail: Text(emailAccount),
+                accountName: Text('Mauricio'),
+                accountEmail: Text('maurici@gmail.com'),
                 currentAccountPicture:
-                    CircleAvatar(backgroundImage: AssetImage(imageRoute)),
+                    CircleAvatar(backgroundImage: AssetImage('assets/photoProfile.jpeg')),
                 decoration: BoxDecoration(color: ColorSettings.colorPrimary),
                 onDetailsPressed: () {
                   Icon(Icons.settings);

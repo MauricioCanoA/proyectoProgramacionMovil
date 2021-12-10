@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:practica_2/src/models/popular_movies_model.dart';
 

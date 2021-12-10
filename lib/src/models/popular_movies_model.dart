@@ -11,7 +11,7 @@ class PopularMoviesModel {
   String? releaseDate;
   String? title;
   bool? video;
-  int? voteAverage;
+  //int? voteAverage;
   int? voteCount;
 
   PopularMoviesModel({
@@ -25,7 +25,7 @@ class PopularMoviesModel {
     this.releaseDate,
     this.title,
     this.video,
-    this.voteAverage,
+    //this.voteAverage,
     this.voteCount,
   });
 
@@ -40,9 +40,9 @@ class PopularMoviesModel {
         posterPath: map['poster_path'] ?? "",
         releaseDate: map['release_date'],
         title: map['title'],
-        voteAverage: map['vote_average'] is int
+        /*voteAverage: map['vote_average'] is int
             ? (map['vote_average'] as int).toDouble()
-            : map['vote_average'],
+            : map['vote_average'],*/
         voteCount: map['vote_count']);
   }
 }

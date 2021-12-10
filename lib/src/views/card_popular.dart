@@ -41,6 +41,7 @@ class CardPopularView extends StatelessWidget {
                   MaterialButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/detail', arguments: {
+                        'id': popular.id,
                         'title': popular.title,
                         'overview': popular.overview,
                         'posterpath': popular.posterPath
